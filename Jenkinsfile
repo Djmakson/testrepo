@@ -29,6 +29,20 @@ pipeline {
                 sh 'mvn clean package'
             }
         }
+        stage('Deploy to Nexus') {
+            steps {
+               nexusArtifactUploader artifacts: [[artifactId: 'RegistrationApp',
+               classifier: '', file: 'target/RegistrationApp-1.3.war',
+               type: 'war']], 
+               credentialsId: 'nexus', 
+               groupId: 'com.example', 
+               nexusUrl: '44.202.46.89:8081', 
+               nexusVersion: 'nexus3', 
+               protocol: 'http', 
+               repository: 'my-repo1',
+               version: '1.4'
+            }
+        }
         stage('Deploy to Tomcat') {
             steps {
                 deploy adapters: [tomcat9(credentialsId: 'mytomcat', path: '', url: 'http://34.239.104.232:8080')], contextPath: 'reg', war: 'target/RegistrationApp-1.2.war'
