@@ -40,7 +40,7 @@ pipeline {
                nexusVersion: 'nexus3', 
                protocol: 'http', 
                repository: 'my-repo1',
-               version: 'v1.BUILD_NUMBER'
+               version: 'v1.$BUILD_NUMBER'
             }
         }
         stage('Deploy to Tomcat') {
