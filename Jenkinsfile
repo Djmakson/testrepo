@@ -14,11 +14,11 @@ pipeline {
              }
            }
         }
-        // stage('Quality Gate') {
-        //     steps {
-        //         waitForQualityGate abortPipeline: true, credentialsId: 'sonarqube'
-        //     }
-        // }
+        stage('Quality Gate') {
+            steps {
+                waitForQualityGate abortPipeline: true, credentialsId: 'sonarqube'
+            }
+        }
         stage('Test') {
             steps {
                 sh 'mvn test'
